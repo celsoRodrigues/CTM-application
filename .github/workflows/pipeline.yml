@@ -16,7 +16,8 @@ jobs:
           docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}  
       - name: run tests
         run: |
-          go test -v 
+          go test -v
+          golint 
       - name: docker build
         run: |
           docker build . -t c3ls0/ctm
@@ -24,7 +25,7 @@ jobs:
         run: |
           docker push c3ls0/ctm
       - name: deploy in k8s
-        uses: danielr1996/kubectl-action@1.0.0
+        uses: wahyd4/kubectl-helm-action@master
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
           args: apply -f manifests/deployment.yaml      

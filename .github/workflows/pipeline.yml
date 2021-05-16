@@ -1,8 +1,6 @@
 name: Shell commands
 
-on: 
-  push:
-    branches: [main]
+on: [push]
 
 jobs:
   buildAndTestAndPush:

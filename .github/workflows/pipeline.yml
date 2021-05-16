@@ -24,5 +24,7 @@ jobs:
         run: |
           docker push c3ls0/ctm
       - name: deploy in k8s
-        run: |
-          kubectl apply -f manifests/
+        uses: danielr1996/kubectl-action@1.0.0
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          args: apply -f manifests/deployment.yaml      

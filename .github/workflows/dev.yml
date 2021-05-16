@@ -3,13 +3,16 @@ name: Shell commands
 on: [push]
 
 jobs:
-  run-shell-commands:
+  buildAndTest:
     runs-on: ubuntu-latest
     steps:
-      - name: echo a string
-        run: echo "hello W"
-      - name: multiline script
+      - name: clone the repo
+        uses: actions/checkout
+      - name: run tests
         run: |
-          go version
-          pwd
+          go test -v 
+      - name: build
+        run: |
+          docker build . -t c3ls0/ctm
+          
         

@@ -14,7 +14,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-//function that keeps running the metrics increment, sleeps 2 seconds
+//function that keeps running the metrics increment, sleeps every 2 seconds
 func recordMetrics() {
 	go func() {
 		for {

@@ -1,0 +1,31 @@
+name: Shell commands
+
+on: 
+  push:
+    branches: [develop]
+
+jobs:
+  buildAndTestAndPush:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone the repo
+        uses: actions/checkout
+      - name: docker login 
+        env: 
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}  
+      - name: run tests
+        run: |
+          go test -v 
+      - name: docker build
+        run: |
+          docker build . -t c3ls0/ctm
+      - name: docker push
+        run: |
+          docker push c3ls0/ctm
+
+            
+          
+        

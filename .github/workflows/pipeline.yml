@@ -2,7 +2,7 @@ name: Shell commands
 
 on: 
   push:
-    branches: [develop]
+    branches: [main]
 
 jobs:
   buildAndTestAndPush:
@@ -25,7 +25,4 @@ jobs:
       - name: docker push
         run: |
           docker push c3ls0/ctm
-
-            
-          
         

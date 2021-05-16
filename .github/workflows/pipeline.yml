@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: clone the repo
-        uses: actions/checkout
+        uses: actions/checkout@v1
       - name: docker login 
         env: 
           DOCKER_USER: ${{ secrets.DOCKER_USER }}

@@ -28,4 +28,4 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         uses: wahyd4/kubectl-helm-action@master
         with:
-          args: apply -f manifests/deployment.yaml      
+          args: kubectl apply -f manifests/deployment.yaml      

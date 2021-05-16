@@ -21,7 +21,7 @@ jobs:
       env:
         kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets. }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
       with:
         args: '"rollout status manifests/deployment.yaml"'

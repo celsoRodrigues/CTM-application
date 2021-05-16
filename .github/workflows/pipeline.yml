@@ -25,4 +25,4 @@ jobs:
           docker push c3ls0/ctm
       - name: deploy in k8s
         run: |
-          kubectl version --short 
+          kubectl apply -f manifests/

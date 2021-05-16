@@ -4,6 +4,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -13,6 +14,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+//function that keeps running the metrics increment, sleeps 2 seconds
 func recordMetrics() {
 	go func() {
 		for {
@@ -23,23 +25,37 @@ func recordMetrics() {
 }
 
 var (
+	//Setting up prometheus
 	opsProcessed = promauto.NewCounter(prometheus.CounterOpts{
 		Name: "myapp_processed_ops_total",
 		Help: "The total number of processed events",
 	})
 )
 
-var httpPort string
+var (
+	httpPort string
+)
 
 func init() {
-	httpPort = os.Getenv("HTTP_PORT")
+	//Setting up the server port
+	httpPort = os.Getenv("SERVER_PORT")
 	if len(httpPort) < 1 {
-		httpPort = "80"
+		httpPort = "8080"
 	}
 }
 
 func main() {
+	l := log.New(os.Stdout, "CTM-APPLICATION", log.LstdFlags|log.Lmicroseconds)
+	if err := run(l); err != nil {
+		l.Println(err)
+		os.Exit(1)
+	}
 
+}
+
+func run(l *log.Logger) error {
+
+	//function that handles the root on http endpoint requests
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		//Reseting the http headers to prevent our app from being cached
@@ -48,12 +64,15 @@ func main() {
 		w.Header().Set("Expires", time.Unix(0, 0).Format(http.TimeFormat))
 		w.Header().Set("Pragma", "no-cache")
 
-		t := time.Now()
-		fmt.Fprint(w, "Hello\n", t.String())
+		//Getting the current salutation/time and setting my http endpoint to show it on the page
+		fmt.Fprint(w, saluteAndTime())
 	})
 
 	recordMetrics()
-
+	//setting the metrics endpoint to show instrumentation data
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(httpPort, nil)
+
+	//starting the server, returns error or nil
+	l.Println("starting the server on port:", httpPort)
+	return http.ListenAndServe(":"+httpPort, nil)
 }

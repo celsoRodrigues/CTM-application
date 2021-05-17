@@ -3,7 +3,7 @@ name: Shell commands
 on: [push]
 
 jobs:
-  buildAndTestAndPush:
+  buildTestAndPush:
     runs-on: ubuntu-latest
     steps:
       - name: clone the repo
@@ -26,6 +26,7 @@ jobs:
       - name: deploy in k8s
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        uses: wahyd4/kubectl-helm-action@master
+        uses: anielr1996/kubectl-action@1.0.0
         with:
-          args: kubectl apply -f deployment.yaml      
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          args: apply -f deployment.yaml      

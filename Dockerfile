@@ -2,7 +2,7 @@ FROM golang:alpine AS builder
 LABEL maintainer="celso.rodrigues@hotmail.co.uk"
 
 WORKDIR /go/src/celso
-COPY ./*.go ./
+COPY . .
 RUN go mod init test && go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a --installsuffix ctm -o webserver
 
 FROM alpine

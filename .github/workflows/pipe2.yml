@@ -14,7 +14,7 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
       with:
-        args: set image --record manifests/deployment.yaml container=${{ github.repository
+        args: set image --record deployment.yaml container=${{ github.repository
           }}:${{ github.sha }}
     - name: verify deployment
       uses: qazz92/kubectl@1.0.3
@@ -24,4 +24,4 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
       with:
-        args: '"rollout status manifests/deployment.yaml"'
+        args: '"rollout status deployment.yaml"'

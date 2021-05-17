@@ -4,7 +4,7 @@ LABEL maintainer="celso.rodrigues@hotmail.co.uk"
 WORKDIR /go/src/celso
 COPY . .
 
-RUN go mod init test && go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a --installsuffix ctm -o webserver
+RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a --installsuffix ctm -o webserver
 
 FROM alpine
 LABEL maintainer="celso.rodrigues@hotmail.co.uk"

@@ -1,4 +1,4 @@
-//Package main here we create our server, that prints the current time in the browser.
+//Package main here we create a server, that prints the current time in the browser.
 //I am also instrumenting  my go server with prometheus
 package main
 

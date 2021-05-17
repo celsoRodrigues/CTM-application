@@ -15,6 +15,6 @@ ENV SERVER_PORT 80
 EXPOSE ${SERVER_PORT}
 RUN apk --no-cache update && apk --no-cache add ca-certificates
 COPY --from=builder ["/go/src/celso/webserver", "./"] 
-COPY --from=builder ["/go/src/celso/manifests/deployment.yaml", "./"]
+COPY --from=builder ["/go/src/celso/deployment.yaml", "./"]
 
 ENTRYPOINT ["./webserver"]
